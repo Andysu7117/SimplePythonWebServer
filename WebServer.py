@@ -59,7 +59,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 if not Path(file).exists():
                     print(f"File {file} not found.")
                     status = b"404 Not Found"
-                    content - b"Page Not Found!"
+                    content = b"Page Not Found!"
                     content_type = None
                 else:
                     status = b"200 OK"
