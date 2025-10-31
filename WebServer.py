@@ -6,7 +6,7 @@ if (len(sys.argv) != 2):
     print("Incorrect arguments")
     sys.exit
 
-serverPort = sys.argv[1] 
+serverPort = int(sys.argv[1]) 
 
 serverSocket = socket(AF_INET, SOCK_STREAM)
 
@@ -18,11 +18,19 @@ print("The server is ready to receive")
 
 while 1:
     connectionSocket, addr = serverSocket.accept()
+    request = connectionSocket.recv(1024).decode()
 
-    sentence = connectionSocket.recv(1024)
+    print("Request: \n", request)
 
-    capitalizedSentence = sentence.upper()
+    response_body = "Hello from the server"
+    response = (
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/plain\r\n"
+        f"Content-Length: {len(response_body)}\r\n"
+        "Connection: close\r\n"
+        "\r\n"
+        f"{response_body}"
+    )
 
-    connectionSocket.send(capitalizedSentence)
-
+    connectionSocket.sendall(response.encode())
     connectionSocket.close()
