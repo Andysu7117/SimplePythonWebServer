@@ -6,7 +6,7 @@ if (len(sys.argv) != 2):
     print("Incorrect arguments")
     sys.exit
 
-serverPort = 12000 
+serverPort = sys.argv[1] 
 
 serverSocket = socket(AF_INET, SOCK_STREAM)
 
